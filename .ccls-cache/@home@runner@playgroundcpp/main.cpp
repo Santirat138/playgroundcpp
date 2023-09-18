@@ -2,7 +2,7 @@
 using namespace std;
 class node{
     public:
-        int num;
+        int num=-1;
         node *next;
 };
 node *nullNode=new node();
@@ -18,11 +18,14 @@ int main(){
     for(int i=0;i<=5;i++){
         addFirst(headR, i);
     }
-
+	show(headR);
+	node *testPrev=findPrevNode(headR, 5);
+	cout<<endl<<testPrev->num;
 }
 /*-----------------------------------------*/ 
 void addFirst(node **headRef, int newNum){
     node *newNode=new node();
+	newNode->num=newNum;
     if(*headRef==NULL){
         *headRef=newNode;
     }
