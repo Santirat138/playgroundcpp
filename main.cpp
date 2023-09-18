@@ -1,33 +1,79 @@
-// Idea NULL 3: Set default num in class node = -1.
 #include<iostream>
 using namespace std;
 class node{
-	public:
-		int num=-1;
-		node *prev;
-		node *next;
+    public:
+        int num;
+        node *next;
 };
-node *null=new node();
-
-bool isSameNum(node **headRef, int numCheck);
+node *nullNode=new node();
+void addFirst(node **headRef, int newNum);
+void show(node **headRef);
+node *findNode(node **headRef, int target);
+node *findPrevNode(node **headRef, int target);
+void deleteNode(node **headRef, int target);
+/*-----------------------------------------*/ 
 int main(){
-	node *head=NULL;
-	node **headR=&head;
-	node *tail=NULL;
-	node **tailR=&tail;
-	
+    node *head=NULL;
+    node **headR=&head;
+    for(int i=0;i<=5;i++){
+        addFirst(headR, i);
+    }
+
 }
-bool isSameNum(node **headRef, int numCheck){
-	node *checkNode=*headRef;
-	bool status=false;
-	while(checkNode!=NULL){
-		if(checkNode->num==numCheck){
-			status=true;
-			break;
-		}
-		else{
-			checkNode=checkNode->next;
-		}
-	}
-	return status;
+/*-----------------------------------------*/ 
+void addFirst(node **headRef, int newNum){
+    node *newNode=new node();
+    if(*headRef==NULL){
+        *headRef=newNode;
+    }
+    else if(*headRef!=NULL){
+        newNode->next=*headRef;
+        *headRef=newNode;
+    }
 }
+void show(node **headRef){
+    node *showNode=*headRef;
+    while(showNode!=NULL){
+        cout<<showNode->num<<" ";
+        showNode=showNode->next;
+    }
+    cout<<endl<<endl;
+}
+node *findNode(node **headRef, int target){
+    node *currNode=*headRef;
+    while(currNode!=NULL){
+        if(currNode->num==target){
+            break;
+        }
+        else{
+            currNode=currNode->next;
+        }
+    }
+    return currNode;
+}
+node *findPrevNode(node **headRef, int target){
+    node *prevNode=nullNode;
+    node *currNode=findNode(headRef, target);
+    if(currNode==*headRef){
+        return prevNode;
+    }
+    else if(currNode!=*headRef){
+        prevNode=*headRef;
+        while(currNode!=NULL){
+            if(currNode->num==target){
+                break;
+            }
+            else{
+                prevNode=currNode;
+                currNode=currNode->next;
+            }
+        }
+        return prevNode;
+    }
+    else{
+        return nullNode;
+    }
+}
+/*void deleteNode(node **headRef, int target){
+    
+}*/
